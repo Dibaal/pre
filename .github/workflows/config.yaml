@@ -1,0 +1,34 @@
+name: Setup Terraform And Provision
+
+on:
+  push:
+    branches: [feature/T-3345-terraform-pipeline]
+jobs:
+  init_and_plan_terraform:
+    name: Init And Plan Terraform
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Initialise Terraform
+        run: |
+              mkdir ~/.aws && touch ~/.aws/config ~/.aws/credentials
+              cat <<EOF > ~/.aws/config
+              [profile terraform-ctwo]
+              region = us-east-1
+              EOF
+
+              cat <<EOF > ~/.aws/credentials
+              [terraform-ctwo]
+              aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID_SECONDARY }}
+              aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY_SECONDARY }} 
+              EOF
+
+              cd terraform 
+              terraform init
+              terraform fmt
+              terraform validate
+              terraform plan --out initial.plan
+              terraform apply initial.plan
