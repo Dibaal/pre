@@ -16,12 +16,12 @@ jobs:
         run: |
               mkdir ~/.aws && touch ~/.aws/config ~/.aws/credentials
               cat <<EOF > ~/.aws/config
-              [profile terraform-ctwo]
+              [profile pres]
               region = us-east-1
               EOF
 
               cat <<EOF > ~/.aws/credentials
-              [terraform-ctwo]
+              [pres]
               aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID_SECONDARY }}
               aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY_SECONDARY }} 
               EOF
