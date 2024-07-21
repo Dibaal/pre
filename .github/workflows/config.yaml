@@ -31,4 +31,4 @@ jobs:
               terraform fmt
               terraform validate
               terraform plan --out initial.plan
-              terraform apply initial.plan
+              terraform apply initial.plan --auto-approve
