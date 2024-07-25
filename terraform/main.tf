@@ -11,13 +11,4 @@ resource "aws_s3_bucket" "terraform_state_bucket" {
   }
 }
 
-resource "aws_instance" "demo" {
- ami           = "ami-0427090fd1714168b"  # Example AMI ID, replace with a valid one for us-east-1
- instance_type = "t2.micro"              # Example instance type, adjust as needed
- subnet_id     = "subnet-0e4dedfacfaad0ca5"
 
-
- tags = {
-   Name = "demoInstance"
- }
-}
